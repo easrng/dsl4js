@@ -1,0 +1,23 @@
+{
+  "name": "dsl4js",
+  "version": "1.0.0",
+  "description": "Easily add a domain specific language to your project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/easrng/dsl4js.git"
+  },
+  "keywords": [
+    "dsl",
+    "parser"
+  ],
+  "author": "https://easrng.us.to/",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/easrng/dsl4js/issues"
+  },
+  "homepage": "https://github.com/easrng/dsl4js#readme"
+}
