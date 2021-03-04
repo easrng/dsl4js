@@ -101,7 +101,7 @@ var grammar = {
     {"name": "member$ebnf$2", "symbols": ["WS"], "postprocess": id},
     {"name": "member$ebnf$2", "symbols": [], "postprocess": function(d) {return null;}},
     {"name": "member", "symbols": ["string", "member$ebnf$1", "NAME_SEPARATOR", "member$ebnf$2", "expression"], "postprocess": d=>({type:"member", name: d[0], value: d[4]})},
-    {"name": "array", "symbols": ["BEGIN_ARRAY", "arguments", "END_ARRAY"], "postprocess": (d)=>({type:"array",value:e[1].value})},
+    {"name": "array", "symbols": ["BEGIN_ARRAY", "arguments", "END_ARRAY"], "postprocess": d=>({type:"array",value:d[1].value})},
     {"name": "number$ebnf$1", "symbols": [{"literal":"-"}], "postprocess": id},
     {"name": "number$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
     {"name": "number$subexpression$1", "symbols": [{"literal":"0"}]},

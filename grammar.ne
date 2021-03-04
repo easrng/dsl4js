@@ -32,7 +32,7 @@ object               -> BEGIN_OBJECT (WS:? member (WS:? VALUE_SEPARATOR WS:? mem
 } %}
 member               -> string WS:? NAME_SEPARATOR WS:? expression {% d=>({type:"member", name: d[0], value: d[4]}) %}
 
-array                -> BEGIN_ARRAY arguments END_ARRAY {% (d)=>({type:"array",value:e[1].value}) %}
+array                -> BEGIN_ARRAY arguments END_ARRAY {% d=>({type:"array",value:d[1].value}) %}
 
 # Primitives
 
@@ -41,7 +41,7 @@ number               -> "-":? ("0" | [1-9] [0-9]:*) ("." [0-9]:+):? (("e" | "E")
 string               -> ["] (([\x20-\x21] | [\x23-\x5B] | [\x5D-\xFFFF]) | [\x5C] ([\x22] | [\x5C] | [\x2F] | [\x62] | [\x66] | [\x6E] | [\x72] | [\x74] | [\x75] HEXDIG HEXDIG HEXDIG HEXDIG)):* ["] {% d=>({type:"string",value:JSON.parse(d.flat(Infinity).join(""))}) %}
 
 false                -> "false" {% d=>({type:"boolean", value: false}) %}
-Null                 -> "null" {% d=>({type:"object", value: null}) %}
+Null                 -> "null" {% d=>({type:"object", value: null}) %} # null is a reserved word, let's use Null
 true                 -> "true" {% d=>({type:"boolean", value: true}) %}
 comment              -> "/*" ([\s\S]):* "*/" {%d=>({type:"comment", value:d.flat(Infinity).join("").slice(2,-2).trim()})%}
 
