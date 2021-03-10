@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+
+const fs=require("fs");
+
+void require('yargs')
+  .scriptName("dsl4js")
+  .usage('$0 <cmd> [args]')
+  .command('run [file]', 'parse and interpret a file', (yargs) => {
+    yargs
+      .positional('file', {
+        describe: 'file to execute, or - for stdin',
+        default: "-"
+      })
+  }, async (argv) => {
+    let file=argv.file
+    if(file=="-"){
+      let buffer = await new Promise((cb,ecb)=>{
+        var buffers = [];
+        process.stdin.on('data', function(buffer) {
+          buffers.push(buffer);
+        });
+        process.stdin.on('end', function() {
+          cb(Buffer.concat(buffers))
+        })
+        process.stdin.on('error', function(e) {
+          ecb(e)
+        })
+      })
+      return run(buffer.toString())
+    }
+    if(!fs.existsSync(file)){
+      return console.error("dsl4js: "+file+": No such file or directory")
+    }
+    run((await fs.promises.readFile(file)).toString())
+  })
+  .argv
+
+function run(string){
+  const DSL = require(".")
+  let d = new DSL();
+  console.log(JSON.stringify(d.execute(string),null,2))
+}

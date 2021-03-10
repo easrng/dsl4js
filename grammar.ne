@@ -6,12 +6,12 @@ blockc               -> WS:? (expression anotherExpression:* (WS:? EXPRESSION_SE
 anotherExpression    -> WS:? EXPRESSION_SEPARATOR WS:? expression
 blocks               -> block namedblock:* {% d=>({type:"blocks",value:{default:d[0],...Object.fromEntries(d[1]||[])}}) %}
 block                -> BEGIN_BLOCK blockc END_BLOCK {% d=>({type:"block",value:d[1]||[]}) %}
-namedblock           -> WS:? safename WS:? block {% d=>([d[0].value, d[1]]) %}
+namedblock           -> WS:? safename WS:? block {% d=>([d[1].value, d[3]]) %}
 
 # Values
 expression           -> (call | jvalue | comment) {% d=>({...d.flat(Infinity).filter(e=>e)[0], expression:true}) %}
 
-call                 -> safename WS:? BEGIN_CALL arguments END_CALL (WS:? blocks):? {% b=>({type:"call",name:b[0].value, blocks:(b[5]&&b[5][1])?b[5][1].value:{}, arguments:b[2]?b[2].value:[]}) %}
+call                 -> safename WS:? BEGIN_CALL arguments END_CALL (WS:? blocks):? {% b=>({type:"call",name:b[0].value, blocks:(b[5]&&b[5][1])?b[5][1].value:{}, arguments:b[3]?b[3].value:[]}) %}
 arguments            -> (WS:? expression (VALUE_SEPARATOR WS:? expression):*):? WS:? {% d=>({type:"arguments", value:d.flat(Infinity).filter(e=>e&&e.expression)}) %}
 
 jvalue               -> (false | Null | true | object | array | number | string) {%

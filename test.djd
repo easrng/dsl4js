@@ -1,0 +1,6 @@
+log("testing");
+if(equal(get("test"), "lmao")) {
+  log("test is lmao")
+} else {
+  log("test isn't lmao")
+}
