@@ -1,5 +1,3 @@
-console.warn("DSL4JS is not ready for production^H^H^H^H^H^H^H^H^H^H any use.")
-
 const nearley = require("nearley");
 const grammar = nearley.Grammar.fromCompiled(require("./grammar.js"));
 const { runnerFactory } = require("./evaluate")

@@ -38,5 +38,5 @@ void require('yargs')
 function run(string){
   const DSL = require(".")
   let d = new DSL();
-  console.log(JSON.stringify(d.execute(string),null,2))
+  d.execute(string)
 }

@@ -1,6 +1,9 @@
 log("testing");
-if(equal(get("test"), "lmao")) {
-  log("test is lmao")
+if(equal("test", "lol")) {
+  log("test is lol")
 } else {
-  log("test isn't lmao")
-}
+  log("test isn't lol")
+};
+null;
+true;
+false
