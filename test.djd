@@ -1,9 +1,23 @@
-log("testing");
-if(equal("test", "lol")) {
-  log("test is lol")
+log("hello world");
+if(equal("hello", "hello")) {
+  log("equals works")
 } else {
-  log("test isn't lol")
+  log("equals is broken")
 };
-null;
-true;
-false
+if(or(true, false)) {
+  log("or works")
+} else {
+  log("or is broken")
+};
+if(and(true, true)) {
+  log("and works")
+} else {
+  log("and is broken")
+};
+while(false) {
+  log("this should never happen")
+};
+log(now());
+while(true) {
+  log("infinite loop")
+};

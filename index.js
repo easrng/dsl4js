@@ -5,9 +5,9 @@ const { runnerFactory } = require("./evaluate")
 class DSL {
   constructor(options){
     if(typeof options!="object") options={}
-    this._options=options||{}
+    this.features=new Proxy(Object.fromEntries(Object.entries(options.features||{}).map(([k,v])=>[k,!!v])),{get:(o,k)=>(typeof o=="boolean"?o[k]:true),set:(o,k,v)=>o[k]=v})
   }
-  execute(code){
+  run(code){
     let parser = new nearley.Parser(grammar); // This looks bad, but it's how the docs say to do it.
     try{
       parser.feed(code)
@@ -21,7 +21,7 @@ class DSL {
       throw new SyntaxError("Unexpected end of input")
     }
     let ast = parser.results[0]
-    return runnerFactory()(ast)
+    return runnerFactory()(ast, this.features)
   }
 }
 module.exports=DSL

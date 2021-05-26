@@ -38,5 +38,5 @@ void require('yargs')
 function run(string){
   const DSL = require(".")
   let d = new DSL();
-  d.execute(string)
+  d.run(string)
 }
