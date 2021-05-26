@@ -1,6 +1,6 @@
 {
   "name": "dsl4js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Easily add a domain specific language to your project.",
   "main": "index.js",
   "scripts": {

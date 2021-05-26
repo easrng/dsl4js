@@ -100,9 +100,10 @@ function wrap(o){
   if(typeof o == "object" && Array.isArray(o)) return new DSLArray(o)
   if((typeof o == "object" && o == null) || typeof o == "undefined") return new DSLArray(o)
 }
-const runnerFactory=()=>{
+const runnerFactory=(exposed)=>{
   let exposedFunctions={};
   Object.assign(exposedFunctions, require("./std"))
+  Object.assign(exposedFunctions, exposed)
   function evaluate(op, features){
     return runners[op.type](op, features)
   }
