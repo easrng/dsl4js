@@ -33,10 +33,38 @@ void require('yargs')
     }
     run((await fs.promises.readFile(file)).toString())
   })
+  .command('debug [file]', 'parse and interpret a file with debug output enabled', (yargs) => {
+    yargs
+      .positional('file', {
+        describe: 'file to execute, or - for stdin',
+        default: "-"
+      })
+  }, async (argv) => {
+    let file=argv.file
+    if(file=="-"){
+      let buffer = await new Promise((cb,ecb)=>{
+        var buffers = [];
+        process.stdin.on('data', function(buffer) {
+          buffers.push(buffer);
+        });
+        process.stdin.on('end', function() {
+          cb(Buffer.concat(buffers))
+        })
+        process.stdin.on('error', function(e) {
+          ecb(e)
+        })
+      })
+      return run(buffer.toString())
+    }
+    if(!fs.existsSync(file)){
+      return console.error("dsl4js: "+file+": No such file or directory")
+    }
+    run((await fs.promises.readFile(file)).toString(), true)
+  })
   .argv
 
-function run(string){
+function run(string, debug){
   const DSL = require(".")
   let d = new DSL();
-  d.run(string)
+  d.run(string, debug)
 }

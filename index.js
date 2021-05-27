@@ -8,7 +8,8 @@ class DSL {
     this.features=new Proxy(Object.fromEntries(Object.entries(options.features||{}).map(([k,v])=>[k,!!v])),{get:(o,k)=>(typeof o=="boolean"?o[k]:true),set:(o,k,v)=>o[k]=v})
     this.exposed=options.exposed||{}
   }
-  run(code){
+  run(code, debug){
+    console.log(debug)
     let parser = new nearley.Parser(grammar); // This looks bad, but it's how the docs say to do it.
     try{
       parser.feed(code)
@@ -22,6 +23,7 @@ class DSL {
       throw new SyntaxError("Unexpected end of input")
     }
     let ast = parser.results[0]
+    if(debug) console.log(ast)
     return runnerFactory(this.exposed)(ast, this.features)
   }
 }

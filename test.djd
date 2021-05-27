@@ -18,6 +18,6 @@ while(false) {
   log("this should never happen")
 };
 log(now());
-while(true) {
+/*while(true) {
   log("infinite loop")
-};
+}*/;

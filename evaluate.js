@@ -131,6 +131,7 @@ const runnerFactory=(exposed)=>{
   runnersImpl.boolean=function object(op){
     return new DSLBoolean(op)
   }
+  runnersImpl.comment=function comment(op){/* ignore */}
   let runners=new Proxy(runnersImpl,{
     get(o, k){
       if(typeof o[k] != "undefined") return o[k]
